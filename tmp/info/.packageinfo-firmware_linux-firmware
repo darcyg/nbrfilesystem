@@ -1,0 +1,34 @@
+Source-Makefile: package/firmware/linux-firmware/Makefile
+Package: ap6212-firmware
+Version: 1
+Depends: +libc +SSP_SUPPORT:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread 
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: firmware
+Category: Firmware
+Title: Broadcom AP6212 firmware
+Maintainer: Trace Wong
+Source: 
+Type: ipkg
+Description: Broadcom AP6212 firmware
+Trace Wong
+@@
+
+Package: r8188eu-firmware
+Version: 1
+Depends: +libc +SSP_SUPPORT:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread 
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: firmware
+Category: Firmware
+Title: RealTek RTL8188EU firmware
+Maintainer: Trace Wong
+Source: 
+Type: ipkg
+Description: RealTek RTL8188EU firmware
+Trace Wong
+@@
+
+
