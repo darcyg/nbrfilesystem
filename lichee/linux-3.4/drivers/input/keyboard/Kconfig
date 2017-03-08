@@ -604,8 +604,7 @@ config KEYPAD_SUNXI
 		based on verify board.
 
 config SUNXI_GPIO_KEY
-	tristate "gpio key for H3 prototype"
-	depends on ARCH_SUN8IW7
+	tristate "gpio key for R16 prototype"
 	help
 		Say Y here to enable the gpio key.
 		based on verify board.
