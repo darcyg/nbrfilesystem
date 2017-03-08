@@ -12,9 +12,9 @@ define KernelPackage/sunxi-vfe
   FILES+=$(LINUX_DIR)/drivers/media/video/sunxi-vfe/csi_cci/cci.ko
   FILES+=$(LINUX_DIR)/drivers/media/video/sunxi-vfe/vfe_os.ko
   FILES+=$(LINUX_DIR)/drivers/media/video/sunxi-vfe/vfe_subdev.ko
-  FILES+=$(LINUX_DIR)/drivers/media/video/sunxi-vfe/device/gc0308.ko
+  FILES+=$(LINUX_DIR)/drivers/media/video/sunxi-vfe/device/gc2035.ko
   FILES+=$(LINUX_DIR)/drivers/media/video/sunxi-vfe/vfe_v4l2.ko
-  AUTOLOAD:=$(call AutoLoad,90,videobuf-core videobuf-dma-contig cci vfe_os vfe_subdev gc0308 vfe_v4l2)
+  AUTOLOAD:=$(call AutoLoad,90,videobuf-core videobuf-dma-contig cci vfe_os vfe_subdev gc2035 vfe_v4l2)
 endef
 
 define KernelPackage/sunxi-vfe/description
