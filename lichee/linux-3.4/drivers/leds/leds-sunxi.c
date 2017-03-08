@@ -285,7 +285,7 @@ static struct platform_driver gpio_led_driver = {
  *                    = 0; success;
  *                    < 0; err
  */
-static int led_sysconfig_para()
+static int led_sysconfig_para(void)
 {
 	int ret = -1;
 	int i;
@@ -293,6 +293,7 @@ static int led_sysconfig_para()
 	script_item_u   val;
 	script_item_value_type_e  type;
 	char trigger_name[32];
+	char led_alias[32];
 	pr_info("=====%s=====.\n", __func__);
 
 	type = script_get_item("led_para", "led_used", &val);
@@ -335,6 +336,7 @@ static int led_sysconfig_para()
 	for (i = 0; i < led_num; i++) {
 		sprintf(led_name[i], "%s%d", "led", i+1);
 		sprintf(trigger_name, "%s%s", led_name[i], "_trigger");
+		sprintf(led_alias, "%s%s", led_name[i], "_alias");
 		type = script_get_item("led_para", led_name[i], &val);
 		if (SCIRPT_ITEM_VALUE_TYPE_PIO != type) {
 			printk(KERN_ERR"script_get_item %s err\n", led_name[i]);
@@ -351,7 +353,14 @@ static int led_sysconfig_para()
 		gpio_leds[i].default_trigger = val.str;
 		printk(KERN_INFO"%s gpio number is %s\n", trigger_name, gpio_leds[i].default_trigger);
 
-		gpio_leds[i].name = led_name[i];
+		type = script_get_item("led_para", led_alias, &val);
+		if (SCIRPT_ITEM_VALUE_TYPE_STR != type) {
+			printk(KERN_ERR"script_get_item %s err\n", led_alias);
+			goto script_get_item_err;
+		}
+		gpio_leds[i].name = val.str;
+		printk(KERN_INFO"%s gpio number is %s\n", led_alias, gpio_leds[i].name);
+
 		gpio_leds[i].active_low = 0;
 		gpio_leds[i].default_state = LEDS_GPIO_DEFSTATE_OFF;
 	}
@@ -364,7 +373,6 @@ script_get_item_err:
 }
 static int __init sunxi_led_init(void)
 {
-	int err = 0;
 	printk(KERN_INFO"[led]:%s begin!\n", __func__);
 	if (led_sysconfig_para() < 0) {
 		printk(KERN_ERR"%s: led_sysconfig_para error\n", __func__);
